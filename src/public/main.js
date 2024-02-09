@@ -1,7 +1,7 @@
 import { loadNotes } from './socket.js'
-import { onHandlerSubmit } from './ui.js'
+import { onHandlerSubmit, renderNotes } from './ui.js'
 
-loadNotes()
+loadNotes(renderNotes)
 
 const noteForm = document.querySelector('#noteForm')
 
