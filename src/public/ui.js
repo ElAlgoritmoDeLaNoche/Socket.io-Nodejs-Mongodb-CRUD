@@ -2,7 +2,7 @@ import { saveNote } from './socket.js'
 
 const notesList = document.querySelector('#note')
 
-const noteUI = note => {
+const noteUI = (note) => {
 	const div = document.createElement('div')
 	div.innerHTML = `
 		<div style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
@@ -17,7 +17,7 @@ const noteUI = note => {
 	return div
 }
 
-export const renderNotes = notes => {
+export const renderNotes = (notes) => {
 	notes.forEach(note => notesList.append(noteUI(note)))
 }
 
@@ -28,4 +28,8 @@ export const onHandlerSubmit = (e) => {
 		noteForm['title'].value,
 		noteForm['description'].value
 	)
+}
+
+export const appendNote = (note) => {
+	notesList.append(noteUI(note))
 }
