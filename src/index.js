@@ -3,8 +3,10 @@ import { Server as WebsocketServer } from 'socket.io'
 import http from 'http'
 import { fileURLToPath } from 'url'
 import path from 'path'
+
 import { connectDB } from './db.js'
 import { PORT } from './config.js'
+import sockets from './sockets.js'
 
 const app = express()
 connectDB()
@@ -16,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 const server = http.createServer(app)
 
 const httpServer = server.listen(PORT)
+console.log('Server on http://localhost:', PORT)
 
 const io = new WebsocketServer(httpServer)
-
-console.log('Server on http://localhost:', PORT)
+sockets(io)
