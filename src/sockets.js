@@ -10,10 +10,15 @@ export default (io) => {
 
 		emitNotes()
 
-		socket.on('client:newnote', async data => {
+		socket.on('client:newnote', async (data) => {
 			const newNote = new Note(data)
 			const savedNote = await newNote.save()
-			socket.emit('server:newnote', savedNote)
+			io.emit('server:newnote', savedNote)
+		})
+
+		socket.on('client:deletenote', async (id) => {
+			await Note.findByIdAndDelete(id)
+			emitNotes()
 		})
 
 	})
