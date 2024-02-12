@@ -21,5 +21,18 @@ export default (io) => {
 			emitNotes()
 		})
 
+		socket.on('client:getnote', async (id) => {
+			const note = await Note.findById(id)
+			io.emit('server:selectednote', note)
+		})
+
+		socket.on('client:updatenote', async (updateNote) => {
+			await Note.findByIdAndUpdate(updateNote._id, {
+				title: updateNote.title,
+				description: updateNote.description
+			})
+			emitNotes()
+		})
+
 	})
 }

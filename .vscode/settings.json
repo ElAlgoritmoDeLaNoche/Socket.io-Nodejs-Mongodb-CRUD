@@ -1,8 +1,12 @@
 {
   "cSpell.words": [
     "deletenote",
+    "getnote",
+    "getnotebyid",
     "loadnotes",
     "newnote",
-    "socketsdb"
+    "selectednote",
+    "socketsdb",
+    "updatenote"
   ]
 }

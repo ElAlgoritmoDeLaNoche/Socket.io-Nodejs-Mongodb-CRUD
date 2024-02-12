@@ -1,6 +1,10 @@
-import { saveNote, deleteNote } from './socket.js'
+import { saveNote, deleteNote, getNoteById, updateNote } from './socket.js'
 
 const notesList = document.querySelector('#note')
+const title = document.querySelector('#title')
+const description = document.querySelector('#description')
+
+let savedId = ''
 
 const noteUI = (note) => {
 	const div = document.createElement('div')
@@ -10,13 +14,16 @@ const noteUI = (note) => {
 			<p>${note.description}</p>
 			<div>
 				<button class='delete' data-id='${note._id}'>Delete</button>
-				<button>Update</button>
+				<button class='update' data-id='${note._id}'>Update</button>
 			</div>
 		</div>
 	`
 
 	const btnDelete = div.querySelector('.delete')
-	btnDelete.addEventListener('click', (e) => deleteNote(btnDelete.dataset.id))
+	const btnUpdate = div.querySelector('.update')
+
+	btnDelete.addEventListener('click', () => deleteNote(btnDelete.dataset.id))
+	btnUpdate.addEventListener('click', () => getNoteById(btnUpdate.dataset.id))
 
 	return div
 }
@@ -26,13 +33,23 @@ export const renderNotes = (notes) => {
 	notes.forEach(note => notesList.append(noteUI(note)))
 }
 
+export const fillForm = (note) => {
+	title.value = note.title
+	description.value = note.description
+	savedId = note._id
+}
+
 export const onHandlerSubmit = (e) => {
 	e.preventDefault()
+	if (savedId) {
+		updateNote(savedId, title.value, description.value)
+	} else {
+		saveNote(title.value, description.value)
+	}
 
-	saveNote(
-		noteForm['title'].value,
-		noteForm['description'].value
-	)
+	savedId = ''
+	title.value = ''
+	description.value = ''
 }
 
 export const appendNote = (note) => {
