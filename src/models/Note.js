@@ -9,7 +9,7 @@ const schema = new Schema(
     description: {
       type: String,
     },
-    imagePath: {
+    image: {
       type: String,
     }
   },
