@@ -5,6 +5,7 @@
     "getnotebyid",
     "loadnotes",
     "newnote",
+    "originalname",
     "selectednote",
     "socketsdb",
     "updatenote"

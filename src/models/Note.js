@@ -9,6 +9,9 @@ const schema = new Schema(
     description: {
       type: String,
     },
+    imagePath: {
+      type: String,
+    }
   },
   {
     timestamps: true,
